@@ -1,0 +1,218 @@
+{% extends 'admin_dashboard/base.html' %}
+
+{% block styles %}
+    <style>
+        .container {
+            padding-top: 20px;
+        }
+
+        .center-align {
+            color: #fff;
+            text-align: center;
+            background-color:#388E3C;
+            padding:20px;
+            border-radius:5px;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .card {
+            width: 300px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-content p {
+            margin: 5px 0;
+        }
+
+        .card-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            margin: 0;
+            padding:10px 20px;
+            border-radius:5px;
+        }
+
+        .green {
+            background-color: #4CAF50 !important;
+            color: white;
+        }
+
+        .red {
+            background-color: #f44336 !important;
+            color: white;
+        }
+
+        .no-leave-requests {
+            font-size:3rem;
+            color: grey;
+            text-align: center;
+        }
+    
+        .history{
+            position:absolute;
+            top:30px;
+            right:30px;
+            background-color:#7ABA78 !important;
+            padding:5px;
+            display:flex;
+            align-items:center !important;
+            gap:10px;
+            color:#fff;
+            transition:all .3s ease;
+        }
+        .history:hover{
+            background-color:#fff !important;
+            color:#7ABA78 !important;
+        }
+
+        .history::after{
+            content:'History';
+            display:block;
+            position:absolute;
+            top:15px;
+            left:-50px;
+            color:#fff;
+            opacity:0;
+            transition:opacity .3s ease;
+        }
+
+        .history:hover::after{
+           opacity:1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding:12px 8px;
+            text-align: center;
+        }
+        #close-history{
+            background:transparent !important;
+            color:#000;
+            display:block;
+            float:right;
+            margin-bottom:10px;
+            cursor:pointer;
+        }
+        tr:nth-child(even) {
+            background-color: #388E3C;
+            color:#fff;
+        }
+    </style>
+{% endblock %}
+
+{% block mainContent %}
+<h1 class="center-align" id="title">Leave Requests</h1>
+<button class="history" id="history-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-history"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+</button>
+    <div class="container" id="main-container">
+        {% if leave_requests %}
+            <div class="card-container">
+                {% for leave_request in leave_requests %}
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Leave Request</span>
+                            <p><strong>Student Name:</strong> {{ leave_request.student.username }}</p>
+                            <p><strong>Student ID:</strong> {{ leave_request.student_id }}</p>
+                            <p><strong>Date:</strong> {{ leave_request.date }}</p>
+                            <p><strong>Reason:</strong> {{ leave_request.reason }}</p>
+                        </div>
+                        <div class="card-action">
+                            <form action="{% url 'allow_leave' leave_request.id %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn green" type="submit">Allow</button>
+                            </form>
+                            <form action="{% url 'disallow_leave' leave_request.id %}" method="post">
+                                {% csrf_token %}
+                                <button class="btn red" type="submit">Disallow</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h4 class="no-leave-requests">No Leave Requests</h4>
+        {% endif %}
+    </div>
+    <div class="notification-history" id="notification-history">
+        <button id="close-history">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-x"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+        </button>
+            {% if leave_requests_history %}
+            <table>
+                <tr>
+                    <th>Student Name:</th>
+                    <th>STUDENT ID</th>
+                    <th>Date:</th>
+                    <th>Room No</th>
+                    <th>Reason</th>
+                </tr>
+                {% for history in leave_requests_history %}
+                    <tr>
+                        <td>{{ history.student.username }}</td>
+                        <td>{{ history.student_id }}</td>
+                        <td>{{ history.date }}</td>
+                        <td>{{ history.student.room_no }}</td>
+                        <td>{{ history.reason }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% else %}
+            <h1>No History Available</h1>
+            {% endif %}
+    </div>
+    <script>
+        const main_container = document.getElementById('main-container');
+        const history = document.getElementById('notification-history');
+        const close_history = document.getElementById('close-history');
+        const history_btn = document.getElementById('history-btn');
+        const title = document.getElementById('title');
+
+        history.style.display = 'none';
+
+        history_btn.addEventListener('click',()=>{
+            main_container.style.display = "none";
+            history.style.display='initial';
+            title.innerHTML = "History";
+            history_btn.style.display = "none";
+        });
+        close_history.addEventListener('click',()=>{
+            main_container.style.display = "initial";
+            history.style.display='none';
+            title.innerHTML = "Leave Requests";
+            history_btn.style.display = "initial";
+        });
+    </script>
+{% endblock %}

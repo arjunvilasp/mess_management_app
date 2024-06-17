@@ -1,0 +1,72 @@
+{% extends 'admin_dashboard/base.html' %}
+
+{% block content %}
+<h1>Meal Details</h1>
+<table class="meal-table">
+    <thead>
+        <tr>
+            <th>Day</th>
+            <th>Meal Type</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for day, meals in meal_details.items %}
+            {% for meal_type, meal in meals.items %}
+                <tr>
+                    <td>{{ day }}</td>
+                    <td>{{ meal_type }}</td>
+                    <td>{{ meal.name }}</td>
+                    <td>${{ meal.price }}</td>
+                    <td>
+                        <button onclick="openModal('{{ day }}', '{{ meal_type }}', '{{ meal.name }}', '{{ meal.price }}')">Update</button>
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Update Meal Modal -->
+<div id="updateModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Update Meal</h2>
+        <form id="updateForm" method="POST" action="{% url 'update_meal' %}">
+            {% csrf_token %}
+            <input type="hidden" id="day" name="day">
+            <input type="hidden" id="mealType" name="meal_type">
+            <label for="mealName">Name:</label>
+            <input type="text" id="mealName" name="meal_name">
+            <label for="mealPrice">Price:</label>
+            <input type="text" id="mealPrice" name="meal_price">
+            <button type="submit">Update</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    var modal = document.getElementById('updateModal');
+    var span = document.getElementsByClassName('close')[0];
+
+    function openModal(day, mealType, mealName, mealPrice) {
+        document.getElementById('day').value = day;
+        document.getElementById('mealType').value = mealType;
+        document.getElementById('mealName').value = mealName;
+        document.getElementById('mealPrice').value = mealPrice;
+        modal.style.display = 'block';
+    }
+
+    span.onclick = function() {
+        modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}

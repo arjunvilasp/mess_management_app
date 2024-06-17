@@ -1,0 +1,241 @@
+{% extends 'admin_dashboard/base.html' %}
+{% load static %}
+{% block styles %}
+<style>
+  .center-align {
+    color: #fff;
+    margin-top: 20px;
+    text-align: center;
+    background-color: #388E3C;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  table th,
+  table td {
+    border: 1px solid #ccc;
+    padding: 15px 8px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #fff;
+    color: #000;
+  }
+
+  tr:nth-child(odd) {
+    background-color: #388E3C;
+    color: #fff;
+  }
+
+  .update-btn {
+    text-decoration: none !important;
+    border: 1px solid #fff;
+    background-color: #388E3C !important;
+    padding: 8px !important;
+    border-radius: 5px;
+    color: #fff;
+    transition: all 0.3s ease;
+    cursor:pointer;
+  }
+
+  .update-btn:hover {
+    background-color: #fff !important;
+    color: #388E3C !important;
+    border: 1px solid #388E3C;
+  }
+
+  /* Modal styles */
+  .modal {
+    max-width: 100%;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: none; /* Hidden by default */
+  }
+
+  .modal-content {
+    text-align: center;
+  }
+
+  .modal-content #updateMealForm{
+    width:100%;
+    display:flex;
+    align-items:center;
+    flex-direction:column;
+    justify-content:center;
+    padding:10px;
+  }
+
+  .modal label {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .modal input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  .modal button {
+    width:100%;
+    background-color: #fff !important;
+    color: #388E3C;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    border:1px solid #388E3C;
+    transition:all .3s ease;
+  }
+
+  .modal button:hover {
+    background-color: #388E3C !important;
+    color: #fff;
+  }
+</style>
+{% endblock %}
+
+{% block mainContent %}
+<div class="container">
+  <h1 class="center-align">Meal List</h1>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Day</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+    <tbody id="mealTableBody">
+      <!-- Table rows will be populated dynamically via JavaScript -->
+    </tbody>
+  </table>
+</div>
+
+<!-- Update Meal Modal -->
+<div id="updateMealModal" class="modal">
+  <div class="modal-content">
+    <h4>Update Meal</h4>
+    <form id="updateMealForm">
+      <input type="hidden" id="mealId">
+      <label for="mealName">Name:</label>
+      <input type="text" id="mealName" required>
+      <label for="mealType">Type:</label>
+      <input type="text" id="mealType" required>
+      <label for="mealDay">Day:</label>
+      <input type="text" id="mealDay" required>
+      <label for="mealPrice">Price:</label>
+      <input type="text" id="mealPrice" required>
+      <button type="submit" class="modal-update-btn">Update</button>
+    </form>
+  </div>
+</div>
+
+<!-- Custom JavaScript -->
+<script>
+  // Function to fill the update form fields with meal data
+  function fillUpdateForm(id, name, type, day, price) {
+    document.getElementById('mealId').value = id;
+    document.getElementById('mealName').value = name;
+    document.getElementById('mealType').value = type;
+    document.getElementById('mealDay').value = day;
+    document.getElementById('mealPrice').value = price;
+    // Open the modal
+    const modal = document.getElementById('updateMealModal');
+    modal.style.display = 'block';
+  }
+  
+  // Add event listener to close the modal when clicking outside of it
+  window.onclick = function (event) {
+    const modal = document.getElementById('updateMealModal');
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+  
+  // Add event listener to the update form
+  document.getElementById('updateMealForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent default form submission
+    const form = event.target;
+    const id = form.querySelector('#mealId').value;
+    const name = form.querySelector('#mealName').value;
+    const type = form.querySelector('#mealType').value;
+    const day = form.querySelector('#mealDay').value;
+    const price = form.querySelector('#mealPrice').value;
+    
+    // Make a PUT request to update the meal data
+    fetch(`/update_meal/${id}/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}' // Ensure to include the CSRF token
+      },
+      body: JSON.stringify({ name, type, day, price })
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const modal = document.getElementById('updateMealModal');
+        modal.style.display = 'none';
+        alert("Meal data updated successfully.")
+        loadMealData();
+      })
+      .catch(error => {
+        console.error('Error updating meal:', error);
+      });
+  });
+
+  // Function to load meal data into the table
+  function loadMealData() {
+    fetch('/get_meals/') // Replace with your API endpoint to fetch meals
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const mealTableBody = document.getElementById('mealTableBody');
+        mealTableBody.innerHTML = ''; // Clear previous data
+
+        // Populate table with meal data
+        data.forEach(meal => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+                  <td>${meal.name}</td>
+                  <td>${meal.type}</td>
+                  <td>${meal.day}</td>
+                  <td>${meal.price}</td>
+                  <td>
+                      <a class="update-btn" onclick="fillUpdateForm('${meal.id}', '${meal.name}', '${meal.type}', '${meal.day}', '${meal.price}')">
+                          Update
+                      </a>
+                  </td>
+              `;
+          mealTableBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching meal data:', error);
+      });
+  }
+
+  // Initial load of meal data
+  loadMealData();
+</script>
+{% endblock %}

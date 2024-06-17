@@ -1,0 +1,176 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Portal</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ 
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'css/stdhome.css' %}">
+</head>
+<body>
+  {% if messages %} {% for message in messages %}
+  <div class="alert alert-success" role="alert">
+    {{ message }}
+    <span class="closebtn" onclick="this.parentElement.style.display='none';"
+      >&times;</span>
+  </div>
+  {% endfor %} {% endif %}
+  <div class="container">
+  <div class="home-options">
+    <a class="profile" href="/profile/{{request.session.student_id}}">
+      <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+    </a>
+    <a class="booking" href="/bookings/{{request.session.student_id}}/">
+      <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar-check"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg> 
+    </a>
+    <a class="logout-btn" href="{% url 'logout' %}">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+      <span>Logout</span>
+    </a>
+  </div>
+    <div class="mess-header">
+      <h1>MESS BOOK</h1>
+      {% if request.session.student_id %}
+      <p>STUDENT NAME: {{ request.session.name }}</p>
+        <p>STUDENT ID: {{ request.session.studentId }}</p>
+      {% else %}
+        <p>STUDENT ID: Not logged in</p>
+      {% endif %}
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <a href="/attendance" style="text-decoration: none;"> 
+        <div class="icon-container" onclick="location.href='#';">
+          <div class="icon">
+            <img src="{%static 'images/icons8-attendance-90.png'%}" alt="Attendance">
+          </div>
+          <p>Attendence</p>
+        </div></a>
+      </div>
+      <div class="col-4">
+       <a href="/mess/" style="text-decoration: none;"> 
+        <div class="icon-container" onclick="location.href='#';">
+          <div class="icon">
+            <img src="{%static 'images/icons8-plate-96.png'%}" alt="Mess">
+          </div>
+          <p>Mess</p>
+        </div></a>
+      </div>
+      <div class="col-4">
+        <a href="/bill/{{request.session.student_id}}" style="text-decoration: none;"> 
+        <div class="icon-container" onclick="location.href='#';">
+          <div class="icon">
+            <img src="{%static 'images/icons8-bill-90.png'%}" alt="Bill">
+          </div>
+          <p>Bill</p>
+        </div>
+        </a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <a href="/leave_req/" style="text-decoration:none;">
+        <div class="icon-container" onclick="location.href='#';">
+          <div class="icon">
+              <img src="{%static 'images/icons8-leave-50.png'%}" alt="Leave Request">
+          </div>
+          <p>Leave Request</p>
+        </div>
+      </div>
+    </a>
+      <div class="col-4">
+        <a href="/complaint/{{request.session.student_id}}" style="text-decoration:none;">
+        <div class="icon-container" onclick="location.href='#';">
+          <div class="icon">
+            <img src="{%static 'images/icons8-complaint-50.png'%}" alt="Complaints">
+          </div>
+          <p>Complaints</p>
+        </div>
+      </div>
+    </a>
+      <div class="col-4">
+        <a href="/notifications/{{request.session.student_id}}/" style="text-decoration:none;">
+        <div class="icon-container" onclick="location.href='/more';">
+          <div class="icon">
+            <img src="{%static 'images/notification3.png'%}" alt="More">
+            {% if notifications_count%}
+            <div class="notification-count">{{notifications_count}}</div>
+            {% endif %}
+          </div>
+          <p>Notifications</p>
+        </div>
+      </div>
+    </a>
+    </div>
+    <div class="feedback">
+      <h2>Customer Feedback</h2>
+      <p>We value your opinion. Please provide us with your feedback so we can improve our services.</p>
+    
+      <form class="rating" id="ratingForm" action="{% url 'submit-feedback' request.session.student_id %}" method="POST">
+        {% csrf_token %}
+        <div class="emoji-container">
+            <div class="line"></div>
+            <div class="emoji">
+                <input class="rate" type="radio" id="terrible" name="rating" value="terrible">
+                <label for="terrible">
+                    <img src="{% static 'images/terrible.png' %}" alt="Emoji 1">
+                </label>
+                <p>Terrible</p>
+            </div>
+            <div class="emoji">
+                <input class="rate" type="radio" id="bad" name="rating" value="bad">
+                <label for="bad">
+                    <img src="{% static 'images/bad.png' %}" alt="Emoji 2">
+                </label>
+                <p>Bad</p>
+            </div>
+            <div class="emoji">
+                <input class="rate" type="radio" id="okay" name="rating" value="okay">
+                <label for="okay">
+                    <img src="{% static 'images/okay.png' %}" alt="Emoji 3">
+                </label>
+                <p>Okay</p>
+            </div>
+            <div class="emoji">
+                <input class="rate" type="radio" id="good" name="rating" value="good">
+                <label for="good">
+                    <img src="{% static 'images/good.png' %}" alt="Emoji 4">
+                </label>
+                <p>Good</p>
+            </div>
+            <div class="emoji">
+                <input class="rate" type="radio" id="great" name="rating" value="great">
+                <label for="great">
+                    <img src="{% static 'images/great.png' %}" alt="Emoji 5">
+                </label>
+                <p>Great</p>
+            </div>
+        </div>
+    </form>
+    </div>
+  </div>
+  <div class="footer">
+   <p>Mess book</p>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const rating = document.querySelectorAll('.rate');
+    
+      rating.forEach(label => {
+        label.addEventListener('change', function() {
+          const form = document.getElementById('ratingForm');
+          form.submit();
+        });
+      });
+    });
+    
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

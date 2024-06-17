@@ -1,0 +1,89 @@
+.bill-header{
+    height: 70px;
+    width: 100vw;
+    background-color: rgba(58, 185, 43, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+
+.bill-header  a{
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    background-color: aliceblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    z-index: 1;
+}
+
+.bill-header h1{
+    color: #fff;
+}
+
+.months-bill-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 500px;
+    width: 400px;
+    margin: auto;
+    box-shadow: rgba(62, 111, 5, 0.02) 0px 1px 3px 0px, rgba(21, 130, 15, 0.15) 0px 0px 0px 1px;
+}
+
+.bill-container .bill{
+    height: 120px;
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.bill-container .bill .month{
+    height: 55px;
+    width: 55px;
+    border: 3px solid #0c5d10;
+    border-radius: 10px;
+    color: #25992a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+.bill-container .bill p{
+    display: block;
+    font-size: 18px;
+    color: #0f2302;
+}
+
+
+
+
+
+.footer{
+    background-color: #388E3C;
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.footer p{
+    font-size: 18px;
+    margin-top: 10px;
+    font-weight: 600;
+    text-shadow: 3px 3px #454343;
+}

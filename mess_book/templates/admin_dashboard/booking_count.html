@@ -1,0 +1,93 @@
+{% extends 'admin_dashboard/base.html' %} {% load static %} {% block styles %}
+<style>
+    .center-align {
+        color: #fff;
+        text-align: center;
+        background-color:#388E3C;
+        padding:20px;
+        border-radius:5px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+    
+      table th,
+      table td {
+        border: 1px solid #ccc;
+        padding: 15px 8px;
+        text-align: center;
+      }
+    
+      th {
+        background-color: #fff;
+        color: #000;
+      }
+
+      tr:nth-child(odd) {
+        background-color: #388E3C;
+        color: #fff;
+      }
+      
+      .form input{
+        padding:5px 8px;
+      }
+
+      form input[type="submit"] {
+        border: none;
+        padding:7px 10px;
+        background-color:#03AED2;
+        color:#fff;
+        border-radius:5px;
+        cursor:pointer;
+      }
+      
+      h2{
+        text-align:center;
+        color:lightgrey;
+        font-size:3rem;
+      }
+
+</style>
+{% endblock %} {% block mainContent %}
+<h1 class="center-align">Daily Booking Count</h1>
+<form method="post" class='form'>
+{% csrf_token %}
+<input type = "date" name="date">
+<input type="submit">
+</form>
+{% if response %}
+<div class="booking_count">
+    <table>
+        <thead>
+            <tr>
+                <th>Meal Type</th>
+                <th>Number of Bookings</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Breakfast</td>
+                <td>{{ breakfast_count }}</td>
+            </tr>
+            <tr>
+                <td>Lunch</td>
+                <td>{{ lunch_count }}</td>
+            </tr>
+            <tr>
+                <td>Tea</td>
+                <td>{{ tea_count }}</td>
+            </tr>
+            <tr>
+                <td>Dinner</td>
+                <td>{{ dinner_count }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% else %}
+<h2>Select Date</h2>
+{% endif %}
+{% endblock %}

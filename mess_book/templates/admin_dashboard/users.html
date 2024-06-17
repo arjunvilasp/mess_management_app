@@ -1,0 +1,78 @@
+{% extends 'admin_dashboard/base.html' %}
+
+{% block styles %}
+    <style>
+        h1 {
+            color: #fff;
+            margin-top: 20px;
+            text-align: center;
+            background-color:#388E3C;
+            padding:20px;
+            border-radius:5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #388E3C;
+            color:#fff;
+        }
+
+        .action-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding:10px;
+            cursor: pointer;
+            border-radius:5px;
+            box-shadow: rgba(255, 255, 255, 0.3) 0px 2px 4px;
+        }
+
+        .action-btn:hover {
+            background-color: #dc3545;
+        }
+
+        .confirm-delete {
+            display: inline;
+        }
+    </style>
+{% endblock %}
+
+{% block mainContent %}
+    <h1>Users</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>STUDENT ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Room No</th>
+            <th>Action</th>
+        </tr>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.student_id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.room_no }}</td>
+                <td>
+                    <form action="{% url 'delete_user' user.id %}" method="post" class="confirm-delete">
+                        {% csrf_token %}
+                        <button type="submit" class="action-btn" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

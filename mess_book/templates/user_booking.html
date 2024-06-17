@@ -1,0 +1,166 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>User Bookings</title>
+    <style>
+      /* Global styles */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        min-height:78vh;
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+      /* Booking card styles */
+      .booking-card {
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        padding: 20px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+      .booking-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+      .booking-info p {
+        margin: 0;
+        font-size: 16px;
+      }
+      .meal-list {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+      }
+      .meal-list li {
+        margin-bottom: 5px;
+        font-size: 14px;
+      }
+      .header {
+        height: 70px;
+        width: 100vw;
+        background-color: #388e3c;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .header a {
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+        background-color: aliceblue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        left: 20px;
+        top: 10px;
+        z-index: 1;
+      }
+
+      .header h1 {
+        color: #fff;
+      }
+      .meal_types{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+      }
+
+      .meal_types p{
+        width:200px;
+        height:30px;
+        border-radius:5px;
+        margin:3px 0;
+        color:#fff;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-transform:uppercase;
+      }
+      .no-booking{
+        font-size:3rem;
+        text-align:center;
+        color:lightgrey;
+      }
+      .booking-info h3{
+        font-size:2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <a href="/studhome/"
+        ><svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="35"
+          height="35"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-chevron-left"
+        >
+          <path d="m15 18-6-6 6-6" /></svg
+      ></a>
+      <h1>User Bookings</h1>
+    </div>
+    <div class="container">
+      <div class="booking-cards">
+        {% if bookings %} {% for booking in bookings %}
+        <div class="booking-card">
+          <div class="booking-info">
+            <p>Date: {{ booking.date }}</p>
+            <p>Student Id: {{ booking.stud_id }}</p>
+          </div>
+          <div class="booking-info">
+            <h3><strong>Meal Types:</strong></h3>
+            <div class="meal_types">
+                {% for meal_type in booking.meal_types %}
+                 {% if meal_type == 'breakfast' %}
+                 <p style="background-color:green;">{{meal_type}}</p>
+                 {% elif meal_type == 'lunch' %}
+                 <p style="background-color:red;">{{meal_type}}</p>
+                 {% elif meal_type == 'tea' %}
+                 <p style="background-color:brown;">{{meal_type}}</p>
+                 {% elif meal_type == 'dinner' %}
+                 <p style="background-color:blue;">{{meal_type}}</p>
+                 {% endif %}
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endfor %} {% else %}
+        <p class="no-booking">No bookings available.</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="footer">
+        <p>Mess book</p>
+      </div>
+  </body>
+</html>

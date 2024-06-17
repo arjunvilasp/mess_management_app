@@ -1,0 +1,141 @@
+{% extends 'admin_dashboard/base.html' %} {% load static %} {% block styles %}
+<style>
+
+  h1 {
+    color: #fff;
+    text-align: center;
+    background-color: #388e3c;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 120px auto;
+  }
+  .container #mealForm{
+    padding:20px;
+  }
+
+  .card-panel {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    margin-top:10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+
+  label {
+    color: #333333;
+  }
+
+  .btn-submit {
+    width: 100%;
+    background-color: #388E3C !important;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition:all .3s ease;
+    font-size:16px;
+    font-weight:600;
+    border:1px solid #fff;
+  }
+
+  .btn-submit:hover {
+    background-color: #fff !important;
+    color:#388E3C;
+    border:1px solid #388E3C;
+  }
+
+  .error-message {
+    color: #dc3545;
+    margin-top: 10px;
+  }
+  .success-message{
+    text-align:center;
+    background:#4CCD99;
+    padding:10px;
+    color:#fff;
+    border-radius:5px;
+  }
+  .error-message{
+    text-align:center;
+    background:#E72929;
+    padding:10px;
+    color:#fff;
+    border-radius:5px;
+  }
+</style>
+{% endblock %} {% block mainContent %}
+<h1 class="center-align">Add Meal</h1>
+<div class="container">
+  <div class="card-panel">
+    <form id="mealForm" action="{% url 'add_meal' %}" method="post">
+      <label for="name">Meal Name</label>
+      <div class="input-field">
+        <input id="name" type="text" name="name" class="validate" required />
+      </div>
+      <label>Meal Type</label>
+      <div class="input-field">
+        <select id="type" name="type" required>
+          <option value="" disabled selected>Select Meal Type</option>
+          <option value="Breakfast">Breakfast</option>
+          <option value="Lunch">Lunch</option>
+          <option value="Tea">Tea</option>
+          <option value="Dinner">Dinner</option>
+        </select>
+      </div>
+      <label>Day of the Week</label>
+      <div class="input-field">
+        <select id="day" name="day" required>
+          <option value="" disabled selected>Select Day of the Week</option>
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+          <option value="Saturday">Saturday</option>
+          <option value="Sunday">Sunday</option>
+        </select>
+      </div>
+      <label for="price">Price</label>
+      <div class="input-field">
+        <input
+          id="price"
+          type="number"
+          name="price"
+          class="validate"
+          required
+        />
+      </div>
+      {% csrf_token %}
+      <button
+        class="btn btn-submit"
+        type="submit"
+        name="action"
+      >
+        Add
+      </button>
+    </form>
+    {% if message %}
+    <p class="success-message">{{ message }}</p>
+    {% endif %} {% if error %}
+    <p class="error-message">{{ error }}</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

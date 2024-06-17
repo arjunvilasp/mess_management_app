@@ -1,0 +1,53 @@
+{% extends 'admin_dashboard/base.html' %}
+
+{% block styles %}
+    <style>
+        .rating {
+            padding-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #fff;
+            text-align: center;
+            background-color:#388E3C;
+            padding:20px;
+            border-radius:5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+{% endblock %}
+
+{% block mainContent %}
+<h2>Ratings</h2>
+    <div class="rating">
+        <table>
+            <tr>
+                <th>Student Name</th>
+                <th>Student ID</th>
+                <th>Room No</th>
+                <th>Rating</th>
+            </tr>
+            {% for rating in ratings %}
+                <tr>
+                    <td>{{ rating.student.username }}</td>
+                    <td>{{ rating.student.student_id }}</td>
+                    <td>{{ rating.student.room_no }}</td>
+                    <td>{{ rating.rating }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/notification.css' %}">
+</head>
+<body>
+    <div class="header">
+        <a href="/studhome/"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg></a>
+        <h1>Notifications</h1>
+    </div>
+    <div class="container">
+        {% if notifications %}
+        {% for notification in notifications %}
+        <div class="notification">
+            {% if notification.status == 2 %}
+            <p>Your leave request for {{ notification.reason }} has been Rejected</p>
+            {% else %}
+            <p>Your leave request for {{ notification.reason }} has been Accepted</p>
+            {% endif %}
+            {% comment %} <button class="mark-seen" onclick="markAsSeen('{{ notification.id }}')">Mark as Seen</button> {% endcomment %}
+        </div>
+        {% endfor %}
+        {% else %}
+        <h3 class='no-notification'>No New Notifications</h3>
+        <img src="{% static 'images/notification.webp' %}" alt="no notification">
+        {% endif %}
+    </div>
+    <div class="footer">
+        <p>Mess book</p>
+       </div>
+    <script>
+        {% comment %} function markAsSeen(notificationId) {
+            fetch(`/mark_as_seen/${notificationId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({}),
+            }).then(response => {
+                if (response.ok) {
+                    document.querySelector(`[data-notification-id="${notificationId}"]`).remove();
+                } else {
+                    console.error('Failed to mark notification as seen.');
+                }
+            }).catch(error => {
+                console.error('Error marking notification as seen:', error);
+            });
+        }  {% endcomment %}
+    </script>
+</body>
+</html>
