@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-8e_ud3r_g!wjj)&$4l=iz@squ5-y)=5$00ya@5-lflb*jyww2(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://mess-management-app.onrender.com"]
 
 
 # Application definition
