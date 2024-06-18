@@ -1,0 +1,142 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-container{
+    min-height: 80vh;
+}
+
+.mess-container .options{
+    height:50px;
+    width: 500px;
+    margin:20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.mess-container .options button{
+    height:50px;
+    width: 40%;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #fff;
+    background:linear-gradient(to right,rgb(40, 145, 40),rgb(25, 179, 25));
+}
+.mess-container .options-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: fit-content;
+    margin: auto;
+    padding: 10px;
+}
+.mess-container .options-container .token-container{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    /* align-items: center;
+    justify-content: center; */
+    flex-direction: column;
+}
+.mess-container .options-container .token-container .token{
+    height: 100px;
+    width: 400px;
+    background-color: rgb(33, 117, 33);
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 5px auto;
+    padding:0px 10px;
+    border-radius: 10px;
+
+}
+.mess-container .options-container .token-container .token p{
+    font-size: 25px;
+    font-weight: bold;
+    color: #fff;
+}
+.mess-container .options-container .token-container .token input{
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+}
+
+.mess-container .options-container .token-container button{
+    height: 50px;
+    width: 100%;
+    cursor: pointer;
+    margin: 10px auto;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid #388E3C;
+    background-color: transparent;
+    color: #388E3C;
+    transition: all .3s ease-in-out;
+}
+.mess-container .options-container .token-container button:hover{
+    border: 1px solid #ffffff;
+    background-color: #388E3C;
+    color: #ffffff;
+}
+
+.mess-container .options-container .menu-container{
+    height: 100%;
+    width: 100%;
+    transition: all .3s ease-in;
+}
+
+
+.mess-container th,tr,td{
+    height: 50px;
+    width: 200px;
+    text-align: center;
+}
+.mess-container tr:nth-child(odd) {
+    background-color: #c0f39e;
+    color: #000;
+}
+.mess-container tr:nth-child(even) {
+    background-color: #4a921b;
+    color: #fff;
+}
+
+.alert {
+    max-width: 500px;
+    padding: 10px;
+    background-color: #c0e7bb;
+    color: #333;
+    margin-bottom: 15px;
+    border-left: 4px solid #4CAF50; 
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 100px;
+    left: 10px;
+    animation: fadeInOut .5s ease-in-out forwards;
+}
+
+.closebtn {
+    color: #333;
+    float: right;
+    font-size: 30px;
+    margin: 0 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.closebtn:hover {
+    color: #000;
+}
+
+
+@keyframes fadeInOut {
+    0% { opacity: 0; } 
+    100% { opacity: 1; } 
+  }

@@ -1,0 +1,271 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 100%;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.home-options{
+    width: 350px;
+    padding: 5px;
+    margin: 5px 10px;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    gap: 20px;
+    position: absolute;
+    top: 10px;
+    right: 0;
+}
+
+.logout-btn{
+    background-color: #388E3C;
+    padding: 8px 15px;
+    color: #fff !important;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: all .3s ease;
+    border: 1px solid #fff;
+}
+
+.logout-btn:hover{
+    background-color: #fff;
+    color: #388E3C !important;
+    border: 1px solid #388E3C;
+}
+
+.profile,.booking{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    color: #388E3C !important;
+    padding: 10px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.booking::after,.profile::after{
+    content: 'Profile';
+    display: block;
+    position: absolute;
+    top: 60px;
+    left: -5px;
+    opacity: 0;
+    transition: opacity .3s ease-in;
+}
+.booking::after{
+    content: 'Booking';
+    display: block;
+    position: absolute;
+    top: 60px;
+    left: -5px;
+    opacity: 0;
+    transition: opacity .3s ease-in;
+}
+
+.profile:hover::after{
+    opacity: 1;
+}
+.booking:hover::after{
+    opacity: 1;
+}
+
+.mess-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.mess-header h1 {
+    font-size: 36px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.mess-header p {
+    font-size: 18px;
+    color: #777;
+}
+.container a{
+    text-decoration: none;
+}
+.icon-container {
+    text-align: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-container:hover {
+    transform: translateY(-5px);
+}
+
+.icon-container .icon {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.icon-container img {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+}
+
+.icon-container p {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #4CAF50;
+}
+
+
+.notification-count{
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    background-color: rgb(184, 69, 69);
+    color: #fff;
+}
+
+
+.feedback {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.feedback h2 {
+    font-size: 28px;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.feedback p {
+    font-size: 16px;
+    color: #666;
+}
+
+.rating {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.rating p {
+    font-size: 20px;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.emoji-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* .emoji-container .line{
+    width: 320px;
+    height: 5px;
+    display: block;
+    background-color: #afadad;
+    position: absolute;
+    top: 20px;
+    left: 160px;
+    z-index: inherit;
+} */
+
+.emoji-container img {
+    width: 50px;
+    height: 50px;
+    margin: 0 10px;
+    z-index: initial;
+    cursor: pointer;
+}
+.emoji-container .emoji {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.emoji-container .emoji p{
+   font-size: 10px;
+   color: #000;
+}
+
+input[type="radio"]{
+    display: none;
+}
+
+.btn-primary {
+    display: block;
+    margin: 50px auto 0;
+    padding: 15px 30px;
+    font-size: 20px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #388E3C;
+}
+
+
+.alert {
+    max-width: 500px;
+    padding: 10px;
+    background-color: #c0e7bb;
+    color: #333;
+    margin-bottom: 15px;
+    border-left: 4px solid #4CAF50; 
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    animation: fadeInOut .5s ease-in-out forwards;
+}
+
+.closebtn {
+    color: #333;
+    float: right;
+    font-size: 30px;
+    margin: 0 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.closebtn:hover {
+    color: #000;
+}
+
+
+@keyframes fadeInOut {
+    0% { opacity: 0; } 
+    100% { opacity: 1; } 
+  }

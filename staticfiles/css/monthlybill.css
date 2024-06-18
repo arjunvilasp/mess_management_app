@@ -1,0 +1,28 @@
+.monthlybill-header{
+    height: 70px;
+    width: 100vw;
+    background-color: rgba(58, 185, 43, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+
+.monthlybill-header  a{
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    background-color: aliceblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    z-index: 1;
+}
+
+.monthlybill-header h1{
+    color: #fff;
+}

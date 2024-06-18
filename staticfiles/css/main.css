@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+*,::after,::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto Mono", monospace !important;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+a{
+    color: #000 !important;
+    text-decoration: none !important;
+}
+
+.header{
+    height: 70px;
+    width: 100vw;
+    background-color:#388E3C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.header  a{
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    background-color: aliceblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    z-index: 1;
+}
+
+.header h1{
+    color: #fff;
+}
+
+.footer{
+    width: 100vw;
+    background-color: #388E3C;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+}
+
+.footer p{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+
+/* ------------------------alert-------------------- */
+
+
+
+.alert {
+    width: 500px;
+    padding:10px 15px;
+    background-color: #c0e7bb;
+    color: #333;
+    margin-bottom: 15px;
+    border-left: 4px solid #4CAF50; 
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 80px;
+    left: 10px;
+    animation: fadeInOut .5s ease-in-out forwards;
+}
+
+.closebtn {
+    color: #333;
+    float: right;
+    font-size: 30px;
+    margin: 0 10px !important;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.closebtn:hover {
+    color: #000;
+}
+
+
+@keyframes fadeInOut {
+    0% { opacity: 0; } 
+    100% { opacity: 1; } 
+  }

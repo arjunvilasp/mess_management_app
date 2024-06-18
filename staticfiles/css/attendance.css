@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+
+.calendar-container{
+  min-height: 83vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.header{
+  height: 70px;
+  width: 100vw;
+  background-color:#388E3C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-family: "Roboto Mono", monospace !important;
+}
+
+.header  a{
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  z-index: 1;
+}
+
+.header h1{
+  color: #fff;
+}
+
+.footer{
+  width: 100vw;
+  background-color: #388E3C;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  font-family: "Roboto Mono", monospace !important;
+}
+
+.footer p{
+  font-size: 18px;
+  font-weight: 600;
+}
+
+
+
+  #calendar {
+    width: 800px;
+    height:550px;
+    margin: 50px auto;
+  }
+  .present a {
+    background-color: green !important;
+    color: white !important;
+  }
+  .absent a {
+    background-color: red !important;
+    color: white !important;
+  }
+  .unmarked a {
+    background-color: grey !important;
+    color: white !important;
+  }
+
+  .calender-header{
+    height: 70px;
+    width: 100%;
+    background-color: rgba(58, 185, 43, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.calender-header a{
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    background-color: aliceblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+}
+
+ .calender-header h1{
+    color: #fff;
+}

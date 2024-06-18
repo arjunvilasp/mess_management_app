@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.complaint-container{
+    min-height: 70vh;
+    width: 100vw;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.complaint-container .complaint-fields{
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin:100px auto;
+    box-shadow: rgb(82, 245, 64,0.8) 0px 10px 25px;
+    padding: 40px;
+}
+
+.complaint-container .complaint-fields .title{
+    color: rgba(58, 185, 43, 0.8);
+    text-align: center;
+}
+
+.complaint-container .complaint-fields p{
+    color: rgba(129, 132, 128, 0.8);
+}
+
+.complaint-container .complaint-fields .input{
+    height: fit-content;
+    width:fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(154, 147, 147, 0.5);
+    margin: 10px 0;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    color:rgba(24, 97, 15, 0.8);
+}
+
+.complaint-container .complaint-fields .input textarea{
+   border: none;
+   width: 350px;
+   height: 150px;
+   background-color: transparent;
+   outline: none;
+   
+}
+::-webkit-input-placeholder{
+    color: rgba(24, 97, 15, 0.8);
+}
+
+.complaint-container .complaint-fields .btn{
+    height: 45px;
+    width: 362px;
+    border: none;
+    color: #fff;
+    border-radius: 50px;
+    background: linear-gradient(to right,rgb(24, 243, 24),rgb(6, 117, 6));
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.login-container .options{
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.login-container .options .options-left{
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.login-container .options input{
+    border-radius: 20px;
+}
+.login-container .options .options-right{
+    font-size: 12px;
+}
